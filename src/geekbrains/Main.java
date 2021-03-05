@@ -56,10 +56,12 @@ public class Main {
                 "при n = -2 (на два влево) -> [ 6, 1, 3, 5 ]. При каком n в какую сторону сдвиг можете выбирать сами.\n");
         int[] arrayToShift1 = { 6, 1, 3, 5 };
         System.out.println("Массив: " + Arrays.toString(arrayToShift1));
-        System.out.println("Сдвиг влево на 13: " + Arrays.toString(shiftArray( arrayToShift1, -13)));
+        shiftArray( arrayToShift1, -13);
+        System.out.println("Сдвиг влево на 13: " + Arrays.toString(arrayToShift1));
         int[] arrayToShift2 = { 6, 1, 3, 5 };
         System.out.println("Массив: " + Arrays.toString(arrayToShift2));
-        System.out.println("Сдвиг вправо на 13: " + Arrays.toString(shiftArray( arrayToShift2, 13)));
+        shiftArray( arrayToShift2, 13);
+        System.out.println("Сдвиг вправо на 13: " + Arrays.toString(arrayToShift2));
     }
 
     /**
