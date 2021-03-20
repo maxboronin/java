@@ -1,6 +1,9 @@
 package geekbrains.animals;
 
+import geekbrains.Plate;
 import geekbrains.support.Registry;
+
+import java.util.Calendar;
 
 public abstract class Animal {
     private String name;
@@ -9,12 +12,19 @@ public abstract class Animal {
     private int swimMaxDistance;
     private boolean canRun;
     private boolean canSwim;
+    private int appetite;
+    //время сытости в секундах
+    private int fullTime;
+    // последнее время, когда стал сыт
+    private long lastDevourTime = 0;
 
-    public Animal(String name, String kind, int runMaxDistance, int swimMaxDistance) {
+    public Animal(String name, String kind, int runMaxDistance, int swimMaxDistance, int appetite, int fullTime) {
         this.name = name;
         this.kind = kind;
         this.runMaxDistance = runMaxDistance;
         this.swimMaxDistance = swimMaxDistance;
+        this.appetite = appetite;
+        this.fullTime = fullTime;
 
         canRun = runMaxDistance > 0;
         canSwim = swimMaxDistance > 0;
@@ -72,5 +82,28 @@ public abstract class Animal {
     @Override
     public String toString(){
         return kind + " " + name;
+    }
+
+    public boolean isHungry(){
+        return (Calendar.getInstance().getTimeInMillis() / 1000 - lastDevourTime) > fullTime;
+    }
+
+    public void devour(Plate plate){
+        if(!isHungry()){
+            System.out.printf("%s %s не хочет есть! \n", kind, name);
+            return;
+        }
+        if(!plate.enoughFood(appetite)){
+            System.out.printf("В миске недостаточно еды для %s %s \n", kind, name);
+            return;
+        }
+        System.out.printf("%s %s поел \n", kind, name);
+        makeFull();
+        plate.devour(appetite);
+    }
+
+    protected void makeFull(){
+        lastDevourTime = Calendar.getInstance().getTimeInMillis() / 1000;
+        System.out.printf("%s %s сыт(-а) \n", kind, name);
     }
 }
