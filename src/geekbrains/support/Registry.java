@@ -25,4 +25,8 @@ public class Registry {
     public static int getKindCounter(String kind){
         return animalsList.stream().filter(animal -> animal.getKind() == kind).collect(Collectors.toList()).size();
     }
+
+    public static ArrayList<Animal> getAnimals(){
+        return animalsList;
+    }
 }
